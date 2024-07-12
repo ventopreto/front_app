@@ -17,6 +17,13 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - selenium
+
+  selenium:
+    image: selenium/standalone-firefox:latest
+    ports:
+      - "4444:4444"
+    shm_size: 2gb
 
 volumes:
   gems_cache:
