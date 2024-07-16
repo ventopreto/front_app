@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Devise.setup do |config|
-  config.omniauth :facebook, ENV["APP_ID"], ENV["APP_SECRET"], scope: "user:email"
+  config.omniauth :facebook, ENV["APP_ID"], ENV["APP_SECRET"]
   config.omniauth :github, ENV["github_CLIENT_ID"], ENV["github_CLIENT_SECRET"], scope: "user:email"
 
   config.jwt do |jwt|

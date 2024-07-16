@@ -1,0 +1,19 @@
+services:
+  web:
+    networks:
+      - public
+      - private
+    container_name: front_app
+  db:
+    networks:
+      - private
+  selenium:
+    networks:
+      - public
+
+networks:
+  public:
+    external: true
+  private:
+    external: false
+

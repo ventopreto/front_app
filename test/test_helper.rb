@@ -32,3 +32,25 @@ class Minitest::Test
   include Capybara::DSL
   include Capybara::Minitest::Assertions
 end
+
+def valid_login_with_github_oauth
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(Faker::Omniauth.github)
+  Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:github]
+end
+
+def valid_login_with_facebook_oauth
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new(Faker::Omniauth.facebook)
+  Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
+end
+
+def invalid_login_with_github_oauth
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:github] = :invalid_credentials
+end
+
+def invalid_login_with_facebook_oauth
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.mock_auth[:facebook] = :invalid_credentials
+end
