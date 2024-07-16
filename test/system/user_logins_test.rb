@@ -1,7 +1,6 @@
 require "application_system_test_case"
 
 class UserLoginTest < ApplicationSystemTestCase
-
   setup do
     Capybara.current_driver = :selenium_firefox_remote
     @user = User.create!(email: "madmax@furyroad.com", password: "interceptor",
