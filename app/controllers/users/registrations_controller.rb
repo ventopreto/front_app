@@ -10,7 +10,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def generate_jwt_token_for_user(user)
-    @token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first
-    session[:jwt_token] = "Bearer #{@token}"
+    token = Warden::JWTAuth::UserEncoder.new.call(user, :user, nil).first
+    session[:jwt_token] = "Bearer #{token}"
   end
 end
