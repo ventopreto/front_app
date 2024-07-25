@@ -4,4 +4,7 @@ Rails.application.routes.draw do
                                    registrations: "users/registrations"}
 
   root to: "home#index"
+  namespace :users do
+    resources :policy, only: [:new, :create, :index]
+  end
 end

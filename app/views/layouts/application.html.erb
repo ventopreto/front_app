@@ -19,6 +19,14 @@
             <li class="nav-item active">
               <% if  user_signed_in?%>
 
+                <li class="nav-item active">
+                  <%= link_to 'Criar Apolice', new_users_policy_path, class:"nav-link" %>
+                </li>
+
+                <li class="nav-item active">
+                  <%= link_to 'Ver Lista de Apolice', users_policy_index_path, class:"nav-link" %>
+                </li>
+
                 <li class="nav-item">
                   <span class="text-light nav-link disabled"><%= current_user.email %></span>
                 </li>
