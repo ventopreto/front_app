@@ -1,0 +1,22 @@
+<div class="card mx-auto" style="width: 20rem;">
+  <div class="card-body">
+    <%= form_with url: "/users/policy", method: :post do |form| %>
+      <%= form.label :name, "Nome:" %>
+      <%= form.text_field :name, placeholder: 'Fred Jones' %>
+      <%= form.label :cpf, "CPF:" %>
+      <%= form.text_field :cpf, placeholder: '34567890123'  %>
+      <%= form.label :registration_plate, "Placa do Veiculo:" %>
+      <%= form.text_field :registration_plate, placeholder: "Mystery Machine" %>
+      <%= form.label :brand, "Marca:" %>
+      <%= form.text_field :brand, placeholder: "Ford"  %>
+      <%= form.label :model, "Modelo:" %>
+      <%= form.text_field :model, placeholder: "Econoline"  %>
+      <%= form.label :year, "Ano:" %>
+      <%= form.text_field :year, placeholder: "1978"  %>
+      <%= form.hidden_field :start_date_coverage, value: Date.today  %>
+      <%= form.label :end_date_coverage, "data fim da cobertura:" %>
+      <%= form.date_field :end_date_coverage, placeholder: "Mystery Machine"  %>
+      <%= form.submit "Cadastrar", class:"btn btn-outline-success btn-sm mt-2" %>
+    <% end %>
+  </div>
+</div>
