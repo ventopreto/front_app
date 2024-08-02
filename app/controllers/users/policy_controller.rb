@@ -30,8 +30,29 @@ class Users::PolicyController < ApplicationController
 
   private
 
+  def payment_data
+    order_id = SecureRandom.uuid
+    conn = Faraday.new(url: "https://api.stripe.com/v1/payment_links", headers: payment_link_headers)
+    response = conn.post("/v1/payment_links") do |req|
+      req.body = {
+        "line_items[0][price]": ENV["STRIPE_PRICE_KEY"],
+        "line_items[0][quantity]": "1",
+        "metadata[order_id]": "#{order_id}"
+
+      }.to_query
+    end
+    JSON.parse(response.body)
+  end
+
+  def payment_link_headers
+    {
+      Authorization: "Basic #{Base64.strict_encode64(ENV["STRIPE_SECRET_KEY"])}",
+      content_type: "application/x-www-form-urlencoded"
+    }
+  end
+
   def policy_params
-    params.permit(:name, :cpf, :registration_plate, :model, :year, :brand, :start_date_coverage, :end_date_coverage)
+    params.permit(:name, :cpf, :registration_plate, :model, :year, :brand, :start_date_coverage, :end_date_coverage, :payment_link, :payment_status)
   end
 
   def request_headers
@@ -42,11 +63,14 @@ class Users::PolicyController < ApplicationController
   end
 
   def query
+    payment_params = payment_data
     <<-GRAPHQL
   mutation {
     policyCreate(input: {policyInput: {
       start_date_coverage: "#{params[:start_date_coverage]}"
       end_date_coverage: "#{params[:end_date_coverage]}"
+      payment_link: "#{payment_params["url"]}"
+      payment_id: "#{payment_params["metadata"]["order_id"]}"
       vehicle: {
         brand: "#{params[:brand]}"
         model: "#{params[:model]}"
