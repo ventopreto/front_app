@@ -16,7 +16,7 @@
   </thead>
   <tbody>
 		<% @policies.each_with_index do |policy| %>
-    <tr>
+    <tr id="<%= policy["policy_id"] %>">
 				<td class="text-center"><%= policy["policy_id"] %></td>
 				<td class="text-center"><%= policy["insured"]["name"] %></td>
 				<td class="text-center"><%= policy["insured"]["cpf"] %></td>
@@ -26,10 +26,10 @@
 				<td class="text-center"><%= policy["vehicle"]["year"] %></td>
 				<td class="text-center"><%= policy["start_date_coverage"] %></td>
 				<td class="text-center"><%= policy["end_date_coverage"] %></td>
-				<td class="text-center"><%= policy["payment_status"] %></td>
-				<td class="text-center">
+				<td id="payment_status" class="text-center"><%= policy["payment_status"] %></td>
+				<td id="payment_link" class="text-center">
 					<% if policy["payment_status"] == "waiting_payment" && policy["payment_link"].present? %>
-						<%= link_to "Pagar", policy["payment_link"] %>
+						<%= link_to "Pagar", policy["payment_link"], target: "_blank" %>
 					<% end %>
 				</td>
     </tr>
