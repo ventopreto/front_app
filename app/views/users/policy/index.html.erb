@@ -10,6 +10,8 @@
 			<th scope="col" class="text-center">Marca</th>
       <th scope="col" class="text-center">Data da Emissão da Apolice</th>
       <th scope="col" class="text-center">Data fim da cobertura</th>
+      <th scope="col" class="text-center">Status</th>
+      <th scope="col" class="text-center">Link de Pagamento</th>
     </tr>
   </thead>
   <tbody>
@@ -24,7 +26,12 @@
 				<td class="text-center"><%= policy["vehicle"]["year"] %></td>
 				<td class="text-center"><%= policy["start_date_coverage"] %></td>
 				<td class="text-center"><%= policy["end_date_coverage"] %></td>
-
+				<td class="text-center"><%= policy["payment_status"] %></td>
+				<td class="text-center">
+					<% if policy["payment_status"] == "waiting_payment" && policy["payment_link"].present? %>
+						<%= link_to "Pagar", policy["payment_link"] %>
+					<% end %>
+				</td>
     </tr>
 		<% end %>
   </tbody>

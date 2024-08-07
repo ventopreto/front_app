@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   root to: "home#index"
   namespace :users do
     resources :policy, only: [:new, :create, :index]
+    resources :payments
   end
 end
